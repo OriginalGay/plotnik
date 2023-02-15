@@ -8,10 +8,10 @@ logging.basicConfig(
 )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Hey!")
 
-async def skibidi(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text= '420')
+async def number(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text= '8')
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
@@ -31,12 +31,10 @@ if __name__ == '__main__':
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
     caps_handler = CommandHandler('caps', caps)
     unknown_handler = MessageHandler(filters.COMMAND, unknown)
-
-
     start_handler = CommandHandler('start', start)
-    skibidi_handler = CommandHandler('skibidi', skibidi)
+    number_handler = CommandHandler('number', number)
 
-    application.add_handler(skibidi_handler)
+    application.add_handler(number_handler)
     application.add_handler(start_handler)
     application.add_handler(caps_handler)
     application.add_handler(unknown_handler)
