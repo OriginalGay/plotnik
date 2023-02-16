@@ -1,3 +1,4 @@
+import openai
 import logging
 from telegram import Update
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
@@ -5,16 +6,28 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
+
 )
 
+openai.api_key = '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'
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Hey!")
 
 async def number(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text= '8')
 
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+async def echo(update, context):
+    text = update.message.text
+    response = openai.Completion.create(
+        engine='text-davinci-002',
+        prompt=text,
+        max_tokens=4000,
+        n=1,
+        stop=None,
+        temperature=0.5
+    )
+    message = response.choices[0].text.strip()
+    await update.message.reply_text(message)
 
 async def caps(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text_caps = ' '.join(context.args).upper()
