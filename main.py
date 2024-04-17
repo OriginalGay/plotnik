@@ -9,7 +9,7 @@ logging.basicConfig(
 
 )
 
-openai.api_key = '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'
+openai.api_key = ''
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Hey!")
 
@@ -40,7 +40,7 @@ async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == '__main__':
-    application = ApplicationBuilder().token('6255294638:AAEpSF3f_7Y-DUqYGc16vcKexeIFojHEEP8').build()
+    application = ApplicationBuilder().token('').build()
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
     caps_handler = CommandHandler('caps', caps)
     unknown_handler = MessageHandler(filters.COMMAND, unknown)
